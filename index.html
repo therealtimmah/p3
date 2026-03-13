@@ -35,11 +35,6 @@
       </div>
 
       <div class="panel">
-        <h2>Inventory</h2>
-        <ul id="inventory-list" class="inventory-list"></ul>
-      </div>
-
-      <div class="panel">
         <h2>Trade Post</h2>
         <p class="trade-copy">Sell everything in your bag for a quick prototype economy.</p>
         <button id="sell-button" class="primary-button">Sell Inventory</button>
@@ -48,6 +43,9 @@
 
     <main class="game-stage">
       <canvas id="game-canvas" width="960" height="640"></canvas>
+      <section class="hotbar" aria-label="Inventory bar">
+        <ul id="inventory-list" class="inventory-list"></ul>
+      </section>
     </main>
 
     <script src="game.js"></script>

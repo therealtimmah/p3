@@ -122,20 +122,25 @@ body {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .inventory-list li {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  min-height: 72px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 6px;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
 }
 
 .game-stage {
   min-width: 0;
+  position: relative;
 }
 
 #game-canvas {
@@ -149,6 +154,36 @@ body {
   image-rendering: pixelated;
 }
 
+.hotbar {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  width: min(720px, calc(100% - 36px));
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: rgba(10, 14, 19, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.inventory-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.inventory-name {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.inventory-count {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 @media (max-width: 960px) {
   .game-shell {
     grid-template-columns: 1fr;
@@ -156,5 +191,14 @@ body {
 
   #game-canvas {
     height: 68vh;
+  }
+
+  .hotbar {
+    width: calc(100% - 24px);
+    bottom: 12px;
+  }
+
+  .inventory-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

@@ -11,6 +11,7 @@ const tileSize = 32;
 const worldWidth = 60;
 const worldHeight = 90;
 const autoMineIntervalMs = 5000;
+const gravityIntervalMs = 140;
 const camera = { x: 0, y: 0 };
 const keys = new Set();
 
@@ -43,6 +44,7 @@ const state = {
     y: 5
   },
   autoMineStartedAt: null,
+  lastFallAt: 0,
   message: "Mine the earth below you."
 };
 
@@ -155,10 +157,6 @@ function mineBelow() {
   setTile(targetX, targetY, { type: "air", solid: false });
   state.message = `Mined ${resource.label}.`;
 
-  if (targetY < worldHeight - 1 && !getTile(targetX, targetY + 1).solid) {
-    state.player.y += 1;
-  }
-
   maybeUpgradeTool();
   renderHud();
 }
@@ -268,7 +266,11 @@ function renderHud() {
   Object.entries(resourceTypes).forEach(([type, resource]) => {
     const item = document.createElement("li");
     const amount = state.inventory[type];
-    item.innerHTML = `<span>${resource.label}</span><strong>x${amount}</strong>`;
+    item.innerHTML = `
+      <span class="inventory-icon" style="background:${resource.color}"></span>
+      <span class="inventory-name">${resource.label}</span>
+      <strong class="inventory-count">${amount}</strong>
+    `;
     inventoryList.appendChild(item);
   });
 }
@@ -308,9 +310,23 @@ function tickAutoMine(now) {
   state.autoMineStartedAt = now;
 }
 
+function tickGravity(now) {
+  if (now - state.lastFallAt < gravityIntervalMs) {
+    return;
+  }
+
+  if (!getTile(state.player.x, state.player.y + 1).solid) {
+    state.player.y = clamp(state.player.y + 1, 0, worldHeight - 1);
+  }
+
+  state.lastFallAt = now;
+}
+
 function loop() {
+  const now = performance.now();
   tickMovement();
-  tickAutoMine(performance.now());
+  tickAutoMine(now);
+  tickGravity(now);
   renderWorld();
   renderHud();
   requestAnimationFrame(loop);
