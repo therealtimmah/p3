@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Down Trader</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="game-shell">
+    <aside class="hud">
+      <div class="panel">
+        <p class="eyebrow">Prototype</p>
+        <h1>Deep Down Trader</h1>
+        <p>
+          A pixel art mining game prototype built for the web. Move with <strong>WASD</strong> or the left and right arrow keys, tap <strong>Space</strong> to mine below you, or hold <strong>Down Arrow</strong> to auto-mine one block every 5 seconds.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2>Status</h2>
+        <dl class="stats">
+          <div>
+            <dt>Money</dt>
+            <dd id="money-value">$0</dd>
+          </div>
+          <div>
+            <dt>Tool</dt>
+            <dd id="tool-value">Rusty Pickaxe</dd>
+          </div>
+          <div>
+            <dt>Depth</dt>
+            <dd id="depth-value">0m</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <h2>Inventory</h2>
+        <ul id="inventory-list" class="inventory-list"></ul>
+      </div>
+
+      <div class="panel">
+        <h2>Trade Post</h2>
+        <p class="trade-copy">Sell everything in your bag for a quick prototype economy.</p>
+        <button id="sell-button" class="primary-button">Sell Inventory</button>
+      </div>
+    </aside>
+
+    <main class="game-stage">
+      <canvas id="game-canvas" width="960" height="640"></canvas>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
